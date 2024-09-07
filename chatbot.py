@@ -1,3 +1,5 @@
+#run pip install -r requirements.txt to install necessary stuff
+
 
 
 #Install and import necessary libraries
