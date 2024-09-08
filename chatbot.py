@@ -4,6 +4,7 @@
 
 
 #run pip install -r requirements.txt to install necessary packages
+from flask import Flask, render_template, request
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_huggingface import HuggingFacePipeline
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -93,5 +94,23 @@ openAIResponse = response.choices[0].message['content'].strip()
 
 
 
-#PRINT BOTH VERSIONS OF THE ANSWER FOR THE USER
-print(context[2:-2] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse)
+# BOTH VERSIONS OF THE ANSWER FOR THE USER
+output = context[2:-2] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse
+
+
+#OUTPUT ON WEBSITE
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    # This is the variable that holds the string you want to display
+    displayOutput = output
+
+    # Pass the variable to the template
+    return render_template("index.html", displayOutput=displayOutput)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
