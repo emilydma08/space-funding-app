@@ -2,25 +2,21 @@ from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
-@app.route('/templates/index.html')
+@app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/templates/donate.html')
-def about():
+@app.route('/donate')
+def donate():
     return render_template('donate.html')
 
-@app.route('/templates/stories.html')
-def stories():
-    return render_template('stories.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
-@app.route('/templates/LessonPage1.html')
-def lessons():
-    return render_template('LessonPage1.html')
-
-@app.route('/templates/pricing.html')
-def pricing():
-    return render_template('pricing.html')
+@app.route('/categories')
+def categories():
+    return render_template('categories.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
