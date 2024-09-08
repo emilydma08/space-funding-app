@@ -114,9 +114,7 @@
     <footer>
         <p>&copy; 2024 My First Website</p>
     </footer>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-
-    <script>
+    <script src="{{ url_for('static', filename='js/app.js') }}">
         document.getElementById("categoryName").textContent = document.cookie;
     </script>
 

@@ -18,5 +18,9 @@ def about():
 def categories():
     return render_template('categories.html')
 
+@app.route('/trivia')
+def trivia():
+    return render_template('trivia.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
