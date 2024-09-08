@@ -62,7 +62,7 @@ data = loader.load()
 
 #uses RecursiveCharacterTextSplitter (chunking method)
 #parameters: 300 chunk size, 30 overlap between chunks (appropriate for our file)
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=30)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 
 #text from file is split into documents
 docs = text_splitter.split_documents(data)
@@ -141,7 +141,7 @@ qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retrieve
 
 
 #User query 
-question = "Where do most short-period comets come from and how do we know?"
+question = "What is the source of the material that causes meteor showers?"
 
 #debugging attempt--qa.run needs context?
 searchDocs = db.similarity_search(question)
