@@ -68,13 +68,10 @@ with open("question.txt", "r", encoding="utf-8") as file:
 searchDocs = db.similarity_search(question)
 context = searchDocs[0].page_content
 
-print(context[2:-2])
 
 
 
-
-
-"""#THIS CHUNK OF CODE USES OPEN AI'S API AND GPT-4o-MINI, JUST IN CASE THE DATABASE DOESN'T HAVE A SATISFACTORY ANSWER
+#THIS CHUNK OF CODE USES OPEN AI'S API AND GPT-4o-MINI, JUST IN CASE THE DATABASE DOESN'T HAVE A SATISFACTORY ANSWER
 
 import openai
 
@@ -92,12 +89,9 @@ response = openai.ChatCompletion.create(
 
 #response
 openAIResponse = response.choices[0].message['content'].strip()
-print(openAIResponse)
-
-
 
 
 
 
 #PRINT BOTH VERSIONS OF THE ANSWER FOR THE USER
-print("According to our database: " + context[0] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse)"""
+print(context[2:-2] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse)
