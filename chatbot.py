@@ -4,6 +4,7 @@
 
 
 #run pip install -r requirements.txt to install necessary packages
+from flask import Flask, render_template, request
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_huggingface import HuggingFacePipeline
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -68,13 +69,10 @@ with open("question.txt", "r", encoding="utf-8") as file:
 searchDocs = db.similarity_search(question)
 context = searchDocs[0].page_content
 
-print(context[2:-2])
 
 
 
-
-
-"""#THIS CHUNK OF CODE USES OPEN AI'S API AND GPT-4o-MINI, JUST IN CASE THE DATABASE DOESN'T HAVE A SATISFACTORY ANSWER
+#THIS CHUNK OF CODE USES OPEN AI'S API AND GPT-4o-MINI, JUST IN CASE THE DATABASE DOESN'T HAVE A SATISFACTORY ANSWER
 
 import openai
 
@@ -92,12 +90,27 @@ response = openai.ChatCompletion.create(
 
 #response
 openAIResponse = response.choices[0].message['content'].strip()
-print(openAIResponse)
 
 
 
 
+# BOTH VERSIONS OF THE ANSWER FOR THE USER
+output = context[2:-2] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse
 
 
-#PRINT BOTH VERSIONS OF THE ANSWER FOR THE USER
-print("According to our database: " + context[0] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse)"""
+#OUTPUT ON WEBSITE
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    # This is the variable that holds the string you want to display
+    displayOutput = output
+
+    # Pass the variable to the template
+    return render_template("index.html", displayOutput=displayOutput)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
