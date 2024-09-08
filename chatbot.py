@@ -4,7 +4,7 @@
 
 
 #run pip install -r requirements.txt to install necessary packages
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_huggingface import HuggingFacePipeline
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -77,7 +77,7 @@ context = searchDocs[0].page_content
 import openai
 
 #set up API key
-openai.api_key = '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'
+openai.api_key = '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'
 
 #make a request to the GPT-4o Mini model using the chat endpoint
 response = openai.ChatCompletion.create(
@@ -97,20 +97,44 @@ openAIResponse = response.choices[0].message['content'].strip()
 # BOTH VERSIONS OF THE ANSWER FOR THE USER
 output = context[2:-2] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse
 
+print(output)
 
 #OUTPUT ON WEBSITE
 
 app = Flask(__name__)
 
-@app.route("/")
-def index():
-    # This is the variable that holds the string you want to display
-    displayOutput = output
 
-    # Pass the variable to the template
-    return render_template("index.html", displayOutput=displayOutput)
+@app.route("/")
+def about():
+    return render_template("about.html")
+
+@app.route("/ask_question", methods=["POST"])
+def ask_question():
+    question = request.json.get('msg')
+
+    # Conduct similarity search
+    searchDocs = db.similarity_search(question)
+    context = searchDocs[0].page_content if searchDocs else "No relevant context found."
+
+    # Use OpenAI to generate additional response
+    openai.api_key = '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'
+    response = openai.ChatCompletion.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "user", "content": "You are a kind astronomy teacher."},
+            {"role": "user", "content": question}
+        ]
+    )
+    openAIResponse = response.choices[0].message['content'].strip()
+
+    # Combine context and OpenAI response
+    combined_response = context[2:-2] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse
+    
+    return jsonify({"response": combined_response})
 
 if __name__ == "__main__":
     app.run(debug=True)
 
+
+print(output)
 
