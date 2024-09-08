@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title> categories </title>
+    </head>
+
+    <style>
+        
+        button {
+            font-size: 24px;
+            width: 80%;
+            margin-bottom: 12%;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f1f1f1}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            font-size: 20px;
+            width: 80%;
+            left:10%
+        }
+
+        .dropdown:hover .dropdownbtn {
+            margin-bottom: 0%;
+        }
+        
+
+    </style>
+
+    <body style = "text-align:center">
+        <h1> Categories</h1>
+
+        <hr/>
+
+        <div class = "dropdown">
+            <button class = "dropdownbtn">Stars and Galaxies</button> <br>
+            <div class="dropdown-content">
+                <a href="#">The Solar System</a>
+                <a href="#">Constellations</a>
+                <a href="#">Celestial Bodies</a>
+            </div>
+        </div>
+        
+        <div class = "dropdown">
+            <button class = "dropdownbtn">Space Expeditions</button> <br>
+            <div class="dropdown-content">
+                <a href="#">The Space Race</a>
+                <a href="#">Rovers and Satellites</a>
+                <a href="#">Past and Future Missions</a>
+            </div>
+        </div>
+        
+        <div class = "dropdown">
+            <button class = "dropdownbtn">Branches of Astronomy</button> <br>
+            <div class="dropdown-content">
+                <a href="#">Cosmology</a>
+                <a href="#">Planetology</a>
+                <a href="#">Exobiology</a>
+            </div>
+        </div>
+
+        <div class = "dropdown">
+            <button class = "dropdownbtn">Astrobiology</button> <br>
+            <div class="dropdown-content">
+                <a href="#">Goldilocks Planets</a>
+                <a href="#">Astrochemistry</a>
+                <a href="#">Extraterrestrials</a>
+            </div>
+        </div>
+        
+        <div class = "dropdown">
+            <button class = "dropdownbtn">Miscellaneous</button> <br>
+            <div class="dropdown-content">
+                <a href="#">Guess the Astronaut</a>
+                <a href="#">The Big Bang</a>
+                <a href="#">Zodiacs and Moons</a>
+            </div>
+        </div>
+        
+    </body>
+</html>
