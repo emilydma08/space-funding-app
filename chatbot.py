@@ -103,38 +103,35 @@ print(output)
 
 app = Flask(__name__)
 
+@app.route("/", methods=["GET", "POST"])
+def index():
+    displayOutput = ""
+    if request.method == "POST":
+        # Capture the user input from the form
+        question = request.form["question"]
 
-@app.route("/")
-def about():
-    return render_template("about.html")
+        # Use the question to search the vector database
+        searchDocs = db.similarity_search(question)
+        context = searchDocs[0].page_content
 
-@app.route("/ask_question", methods=["POST"])
-def ask_question():
-    question = request.json.get('msg')
+        # Fallback to OpenAI GPT-4o Mini model if needed
+        response = openai.ChatCompletion.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": "You are a kind astronomy teacher."},
+                {"role": "user", "content": question}
+            ]
+        )
+        openAIResponse = response.choices[0].message['content'].strip()
 
-    # Conduct similarity search
-    searchDocs = db.similarity_search(question)
-    context = searchDocs[0].page_content if searchDocs else "No relevant context found."
+        # Combine the vector search result with the OpenAI result
+        displayOutput = context[2:-2] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse
 
-    # Use OpenAI to generate additional response
-    openai.api_key = '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'
-    response = openai.ChatCompletion.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "user", "content": "You are a kind astronomy teacher."},
-            {"role": "user", "content": question}
-        ]
-    )
-    openAIResponse = response.choices[0].message['content'].strip()
-
-    # Combine context and OpenAI response
-    combined_response = context[2:-2] + "\n\nIn the case this doesn't answer your question completely, here is a more thorough description!\n" + openAIResponse
-    
-    return jsonify({"response": combined_response})
+    # Render the about.html template with the generated output
+    return render_template("about.html", displayOutput=displayOutput)
 
 if __name__ == "__main__":
     app.run(debug=True)
-
 
 print(output)
 
