@@ -172,13 +172,17 @@
         </text>
 
         <div class="chat-popup" id="myForm">
-            <form action="/action_page.php" class="form-container">
+            <form action="/" method="POST" class="form-container">
                 <h1>Chat</h1>
                 <label for="msg"><b>Ask a Space-Related Question!</b></label>
-                <textarea id="message" placeholder="Type message.." name="msg" required></textarea>
-                <button type="button" onclick="submitMessage()">Submit</button>
+                <input type="text" id="question" placeholder="Type message.." name="question" required>
+                <button type="submit">Submit</button>
                 <button type="button" class="cancel" onclick="closeForm()">Close</button>
             </form>
+
+            <h2>Answer:</h2>
+            <p>{{ displayOutput }}</p>
+
             <div id="responseContainer"></div>
         </div>
 
@@ -190,23 +194,7 @@
                 document.getElementById("myForm").style.display = "none";
             }
 
-            function submitMessage() {
-            var message = document.getElementById("message").value;
-            
-            fetch('/ask_question', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ msg: message })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("responseContainer").innerHTML = `<p>${data.response}</p>`;
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
+        
         </script>
     </body>
 </html>
