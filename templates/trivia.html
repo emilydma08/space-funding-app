@@ -104,15 +104,21 @@
         </nav>
     </header>
     <div class="category-box">
-        <h2>CATEGORYNAME</h2>
+        <p id = "categoryName">CATEGORYNAME</p>
         <div class="question-box">
             <p id="question">Question will appear here</p>
             <div id="answer-buttons" class="question-container"></div>
         </div>
     </div>
+
     <footer>
         <p>&copy; 2024 My First Website</p>
     </footer>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    <script>
+        document.getElementById("categoryName").textContent = document.cookie;
+    </script>
+
 </body>
 </html>

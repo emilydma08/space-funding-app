@@ -63,3 +63,4 @@ function selectAnswer(button, correct) {
         }
     }, 1000);
 }
+

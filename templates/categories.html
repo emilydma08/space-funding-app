@@ -4,8 +4,16 @@
         <title> categories </title>
     </head>
 
+    <script>
+        // saving chosen category as cookie
+        function saveCategory(category) {
+            document.cookie = category;
+        }
+
+    </script>
+
     <style>
-        
+        /*formatting category buttons*/
         button {
             font-size: 24px;
             width: 80%;
@@ -13,6 +21,7 @@
             cursor: pointer;
         }
 
+        /*formatting dropdown links*/
         .dropdown-content {
             display: none;
             position: absolute;
@@ -22,6 +31,7 @@
             z-index: 1;
         }
 
+        /*formatting content*/
         .dropdown-content a {
             color: black;
             padding: 12px 16px;
@@ -29,8 +39,10 @@
             display: block;
         }
 
+        /*formatting shadow when hovering*/
         .dropdown-content a:hover {background-color: #f1f1f1}
 
+        /*displaying dropdown menu*/
         .dropdown:hover .dropdown-content {
             display: block;
             font-size: 20px;
@@ -38,6 +50,7 @@
             left:10%
         }
 
+        /*removing bottom margin space*/
         .dropdown:hover .dropdownbtn {
             margin-bottom: 0%;
         }
@@ -65,7 +78,7 @@
         <div class = "dropdown">
             <button class = "dropdownbtn">Stars and Galaxies</button> <br>
             <div class="dropdown-content">
-                <a href="/trivia">The Solar System</a>
+                <a href="/trivia" onclick="saveCategory('The Solar System')">The Solar System</a>
                 <a href="#">Constellations</a>
                 <a href="#">Celestial Bodies</a>
             </div>
@@ -106,6 +119,6 @@
                 <a href="#">Zodiacs and Moons</a>
             </div>
         </div>
-        
     </body>
+
 </html>
