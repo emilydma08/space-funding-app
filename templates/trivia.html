@@ -63,12 +63,16 @@
         </ul>
     </nav>
     <div class="category-box">
-        <p>CATEGORYNAME</p>
+        <p id = "categoryName">CATEGORYNAME</p>
         <div class="question-box">
             <p id="question">Question will appear here</p>
             <div id="answer-buttons" class="question-container"></div>
         </div>
     </div>
     <script src="app.js"></script>
+
+    <script>
+        document.getElementById("categoryName").textContent = document.cookie;
+    </script>
 </body>
 </html>
